@@ -1,14 +1,14 @@
 <?php
 /**
- * Plugin Name: Post views counter
- * Description: Post views counter. For enable it, add to functions.php: add_theme_support('views', ['post_type' => 'post']);
+ * Plugin Name: Post views counter plugin
+ * Plugin URL: https://rwsite.ru
+ * Description: WordPress plugin post views counter. For enable it, add to functions.php: <code>add_theme_support('views', ['post_type' => 'post']);</code>
  * Version: 1.0.0
  * Text Domain: views
  * Domain Path: /languages
  * Author: Aleksey Tikhomirov
- * Author URI:  http://rwsite.ru
  *
- * Requires PHP: 8.0+
+ * Requires PHP: 7.4+
  * How enable it: add_theme_support('views');
  */
 
@@ -46,10 +46,10 @@ class PostViews
         load_plugin_textdomain( 'views', false, dirname(plugin_basename(__FILE__)) . '/languages' );
 
         add_action('init', function () {
+            $args = get_theme_support('views');
+            $this->settings = !empty($args) && is_array($args) ? current($args) : [];
 
-            $this->settings = current( (array) get_theme_support('views'));
-
-            if (false === $this->settings) {
+            if (empty($this->settings)) {
                 return;
             }
 
@@ -66,9 +66,7 @@ class PostViews
 
             // show post views in admin
             add_action('post_submitbox_misc_actions', [$this, 'show_views']);
-
             add_shortcode('most_viewed', [$this, 'get_most_viewed']);
-
         },9);
     }
 
