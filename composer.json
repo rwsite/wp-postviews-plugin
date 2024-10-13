@@ -3,6 +3,7 @@
   "description": "This WordPress plugin for creating a post view counter.",
   "minimum-stability": "stable",
   "license": "proprietary",
+  "type": "wordpress-plugin",
   "authors": [
     {
       "name": "Aleksei Tikhomirov",
