@@ -43,10 +43,11 @@ class PostViews
             return;
         }
 
-        load_plugin_textdomain( 'views', false, dirname(plugin_basename(__FILE__)) . '/languages' );
-
         add_action('init', function () {
-            $args = get_theme_support('views');
+
+	        load_plugin_textdomain( 'views', false, dirname(plugin_basename(__FILE__)) . '/languages' );
+
+	        $args = get_theme_support('views');
             $this->settings = !empty($args) && is_array($args) ? current($args) : [];
 
             if (empty($this->settings)) {
